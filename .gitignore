@@ -1,2 +1,4 @@
 node_modules/
 my-settings.json
+run.sh
+build/builds/

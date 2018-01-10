@@ -2,9 +2,9 @@
 
 ## Overview
 
-My team and I at work decided to run an internal hackathon, and realised we needed a dashboard to help manage it. We wanted to create challenges which give participants points when they complete each one and can watch themselves climb up the leaderboard in real time. I'd been working with Meteor for a about a month prior to this, so I figured I'd make the dashboard using Meteor.
+My team and I at work decided to run an internal hackathon, and realised we needed a dashboard to help manage it. We wanted to create challenges which give participants points when they complete each one and can watch themselves climb up the leaderboard in real time. I'd been working with Meteor for a about a month prior to this, so I figured I'd make the dashboard using [Meteor](https://www.meteor.com/).
 
-Meteor **massively** sped up the development process. It only took 2 or 3 days to build a fully operational dashboard. 
+[Meteor](https://www.meteor.com/) **massively** sped up the development process. It only took 2 or 3 days to build a fully operational dashboard. 
 
 We ran our server on Heroku, but you can use pretty much any host you like, as long as you get Meteor up and running on it.
 
@@ -73,3 +73,4 @@ Version 2:
 - [ ] Add 'Click to Deploy' Heroku button
 - [ ] Add Docker support
 - [ ] Add lots and lots of comments
+
