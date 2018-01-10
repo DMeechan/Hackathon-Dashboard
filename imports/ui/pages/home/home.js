@@ -177,6 +177,7 @@ Template.home_tasks.onRendered(() => {
 function updateScore() {
     // console.log('Updating score');
     const userID = Meteor.userId();
+
     const userTasksOutput = UserData.findOne({ _id: userID }, {
         fields: {
             tasks: 1,
@@ -217,9 +218,10 @@ function updateScore() {
         } 
     }
 
-    UserData.update({_id: userID}, {
-        $set: {
-            score: score,
+    Meteor.call('updateScore', userID, score, (error, result) => {
+        if (error) {
+            console.log('Error updating UserData score', error);
+            return;
         }
     });
 }

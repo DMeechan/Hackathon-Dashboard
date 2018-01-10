@@ -9,5 +9,13 @@ Meteor.methods({
                 'tasks.$.complete': newTaskValue,
             }
         });
-    }
+    },
+
+    updateScore: (userID, score) => {
+        UserData.update({ _id: userID }, {
+            $set: {
+                score: score,
+            }
+        });
+    },
 });
