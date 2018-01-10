@@ -1,0 +1,25 @@
+<template name="Events_Layout">
+    {{> navMenu}}
+    <div class="container">
+        <h1>Events</h1>
+        {{#each getEvents}}
+            {{> event_card}}
+        {{/each}}
+    </div>
+</template>
+
+<template name="event_card">
+    <div class="row">
+        <div class="col s12">
+            <div class="card {{ getCardColour }} hoverable">
+                <div class="card-content white-text">
+                    <span class="card-title">{{ name }} </span>
+                    <p>Theme: {{ theme }}</p>
+                </div>
+                <div class="card-action grey lighten-5">
+                    <a href="/home" class="join blue-text" id="{{ _id }}">JOIN EVENT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

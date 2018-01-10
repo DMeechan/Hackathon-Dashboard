@@ -1,0 +1,98 @@
+<template name="Home_Layout">
+     {{> navMenu}}
+    <div class="container">
+        {{#with getEvent}}
+            <h1>{{name}} - {{theme}}</h1>
+        {{/with}}
+        {{> home_welcome}}
+        {{> home_leaderboard}}
+        {{> home_tasks}}
+        {{> home_instructions}}
+        {{> home_secret_code}}
+    </div>
+</template>
+
+<template name="home_welcome">
+    <h4>Welcome {{ getName }}</h4>
+</template>
+
+<template name="home_leaderboard">
+    <ul class="collection with-header hoverable">
+        <li class="collection-header blue lighten-1 white-text">
+            <h4>Leaderboard - Top 10</h4>
+            Number of participants: {{ getParticipantsCount }}
+        </li>
+        {{#each getTopParticipants}}
+            <li class="collection-item"><div>
+                {{#with getParticipantName this._id}}
+                    {{ profile.name }}
+                {{/with}}
+                <a href="#!" class="secondary-content">{{ score }}</a>
+            </div></li>
+        {{/each}}
+    </ul>
+</template>
+
+<template name="home_tasks">
+    <div class="row">
+        <div class="col s12">
+            <ul class="collection with-header hoverable">
+                <li class="collection-header blue lighten-1 white-text">
+                    <h4 class="task-card-title">Challenges</h4>
+                    <p class="task-card-date">Your current score: {{ getScore }}</p>
+                </li>
+                {{#each getTasks}}
+                    {{> home_task}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>
+
+<template name="home_task">
+    <li class="collection-item">
+        <input class="toggle-checked" type="checkbox" id="{{ _id }}" />
+        <label for="{{ _id }}" class="title">{{ name }}
+        </label>
+        <span class="badge white-text {{ getTaskColour this.difficulty }}">
+            {{ getTaskDifficultyLabel this.difficulty }}
+        </span>
+    </li>
+</template>
+
+<template name="home_instructions">
+    <h4>
+        Instructions
+    </h4>
+    <ol>
+        <li>Vote for the free pizza that you'd like <a href="/vote" target="_blank">here</a></li>
+        <li>Download the spreadsheet from <a href="https://drive.google.com/open?id=1gH8eNRtnk3rIfmj_vdXM1gQitXv5v7qH" target="_blank">here</a> or download it from your emails (we're emailing the spreadsheet to everybody now)</li>
+        <li>Work through the challenges, starting with 'Prepare for Xmas'</li>
+        <li>Tick off each challenge on this page when you complete them</li>
+        <li>Help each other and ask for help if you get stuck!</li>
+        <li>At the end of the event, please fill out our feedback survey <a href="/survey">here</a>. Thanks!</li>
+    </ol>
+</template>
+
+<template name="home_secret_code">
+    <!-- <h4>Secret code</h4> -->
+    <div class="row">
+        <div class="col s12 m10">
+            {{#if codeNotFound}}
+                <div style="bottom: 5px;" class="input-field col s8 m6 l4">
+                    <input id="secret_code" type="text">
+                    <label for="secret_code" class="grey-text">Secret Code</label>
+                </div>
+                <div class="input-field col s4">
+                    <a class="btn waves-effect white submitCode tooltipped" 
+                        data-position="right" data-delay="500" 
+                        data-tooltip="Hint: the secret code isn't hidden in any of the challenges - look around you!">
+                        <i class="material-icons blue-text">send</i>
+                    </a>
+                </div>
+            {{else}}
+                <p>Success! Secret code unlocked!</p>
+            {{/if}}
+        </div>
+    </div>
+</template>

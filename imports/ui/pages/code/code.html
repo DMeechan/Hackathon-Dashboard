@@ -1,0 +1,31 @@
+<template name="Code_Layout_LoggedOut">
+    {{> navMenu}}
+    <div class="container">
+        <h3>Well done for finding the hidden code!</h3>
+        <h5>Check back here during the event for the secret code!</h5>
+    </div>
+</template>
+
+<template name="Code_Layout">
+    {{> navMenu}}
+    <div class="container">
+        <h3>Well done for finding the secret code!</h3>
+        <h5>The secret code is: merrychristmas2017</h5>
+    </div>
+</template>
+
+<template name="code_activateBonus">
+    <div class="row">
+        <div class="col s12">
+            <button class="btn-large waves-effect waves-light blue submit start" type="submit" name="action">Get Bonus
+                <i class="material-icons right">send</i>
+            </button>
+            <h5 class="end hide">
+                Bonus applied!
+                <br>
+                <br>
+                Click <a href="/home">here</a> to go back to the event and check your score
+            </h5>
+        </div>
+    </div>
+</template>

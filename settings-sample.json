@@ -1,0 +1,14 @@
+{
+  "s3": {
+    "key": "",
+    "secret": "",
+    "bucket": "",
+    "region": ""
+  },
+  "AWS": {
+    "key": "",
+    "secret": "",
+    "bucket": "",
+    "region": ""
+  }
+}

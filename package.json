@@ -1,0 +1,26 @@
+{
+  "name": "web",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "cleanup": "rm -rf ../bundle/",
+    "dist": "npm run cleanup && meteor build ../ --directory --architecture os.linux.x86_64 --server-only",
+    "predeploy": "npm run dist && cp app.yaml ../bundle/ && cp Dockerfile ../bundle/",
+    "deploy": "npm run predeploy && (cd ../bundle && gcloud app deploy -q)"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.146.0",
+    "babel-runtime": "^6.26.0",
+    "bcrypt": "^1.0.3",
+    "core-js": "^2.5.1",
+    "fancy-textfill": "^1.2.1",
+    "meteor-cleaner": "^1.0.1",
+    "meteor-node-stubs": "~0.2.4",
+    "moment": "^2.19.1",
+    "node-s3-public-url": "^1.0.2",
+    "pica": "^4.0.1",
+    "sharp": "^0.18.4",
+    "simpl-schema": "^1.2.0",
+    "tracer": "^0.8.11"
+  }
+}

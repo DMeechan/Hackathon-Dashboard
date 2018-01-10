@@ -1,0 +1,197 @@
+<template name="Admin_Layout">
+    {{> navMenu}}
+    <div class="container">
+        {{#if allowedUser}}
+            <div class="row">
+                <div class="col s12">
+                    <h1>Events Manager</h1>
+                </div>
+            </div>
+            {{> admin_events}}
+        {{else}}
+            <h1>Access restricted</h1>
+        {{/if}}
+    </div>
+</template>
+
+<template name="admin_events">
+    <!-- accordion -->
+     <!-- staggered -->
+<ul class="collapsible popout" data-collapsible="expandable">
+        {{#each getEvents}}
+            {{> admin_event }}
+        {{/each}}
+        {{> admin_addEvent}}
+    </ul>
+</template>
+
+<template name="admin_addEvent">
+    <li>
+        <div class="collapsible-header addEventToggle">
+            <i class="material-icons">add</i>New Event</div>
+        <a style="top: 20px; right: 20px;" class="btn-large btn-floating btn right waves-effect waves-light blue lighten-1 toggleAddButton hide addEvent">
+            <i class="material-icons">add</i>
+        </a>
+        <div class="collapsible-body">
+            <span>
+                <div class="row">
+                    <form id="NEW-TASK-FORM" class="col s11">
+                        {{> admin_addEvent_info}}
+                    </form>
+                </div>
+            </span>
+        </div>
+    </li>
+</template>
+
+<template name="admin_addEvent_info">
+    <div class="row">
+        <div class="input-field col s6">
+            <input id="add_event_name" type="text" value="" class="">
+            <label for="add_event_name" class="">Name</label>
+        </div>
+        <div class="input-field col s6">
+            <input id="add_event_theme" type="text" value="" class="">
+            <label for="add_event_theme" class="">Theme</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label for="add_event_date" class="">Event Date</label>
+            <input id="add_event_date" type="text" value="{{ formatDateMaterialize '2017-12-01T00:00:00.000Z' }}" class="datepicker">
+        </div>
+    </div>
+</template>
+
+<template name="admin_event">
+    <li>
+        <div class="collapsible-header toggleEventEditButton">
+            <i class="material-icons">insert_invitation</i>{{ name }}</div>
+            <a style="top: 20px; right: 20px;" id="eventEditButton" class="btn-large btn-floating right waves-effect waves-light orange lighten-1 editController">
+                <i class="material-icons" id="EDIT-{{ _id }}">edit</i>
+            </a>
+        <div class="collapsible-body">
+            <span>
+                <div class="row">
+                    <form id="FORM-{{ _id }}" class="col s11">
+                        {{> admin_event_info}}
+                        {{> admin_event_tasks}}
+                        {{> admin_event_participants}}
+                    </form>
+                </div>
+            </span>
+        </div>
+    </li>
+</template>
+
+<template name="admin_event_info">
+    <div class="row">
+        <div class="input-field col s6">
+            <input id="event_name" type="text" value="{{ name }}" class="editable" disabled>
+            <label for="event_name" class="active">Name</label>
+        </div>
+        <div class="input-field col s6">
+            <input id="event_theme" type="text" value="{{ theme }}" class="editable" disabled>
+            <label for="event_theme" class="active">Theme</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <label for="event_date" class="active">Event Date</label>
+            <input id="event_date" type="text" value="{{ formatDateMaterialize date }}" class="datepicker editable" disabled>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="event_id" type="text" value="{{ _id }}" class="" disabled>
+            <label for="event_id" class="active">ID</label>
+        </div>
+    </div>
+
+</template>
+
+<template name="admin_event_participants">
+    <div class="row">
+        <div class="col s12">
+            <!-- <h5>Participants - <a class="export" href="#">Export</a></h5> -->
+            <h5 style="display: inline;">Participants</h5>
+            <a class="right waves-effect waves-light btn export">
+                <i class="material-icons">file_download</i>
+            </a>
+            <br>
+            {{#each getParticipants }}
+                {{> admin_event_participant}}
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="admin_event_participant">
+    <div class="col s12 m4">
+        <div class="card blue-grey">
+            <div class="card-content white-text">
+                <span class="card-title">
+                    {{ getName }}
+                </span>
+                <p>Score: {{ score }}</p>
+                <p>ID: {{ _id }}</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="admin_event_tasks">
+    <div class="row">
+        <div class="col s12">
+            
+            <h5>Tasks</h5>
+            {{#each getTasks }}
+                {{> admin_event_task}}
+            {{/each}}
+             {{> admin_event_addTask}}
+        </div>
+    </div>
+</template>
+
+<template name="admin_event_task">
+    <div class="col s12 m6">
+            <div class="card {{ getTaskColour this.difficulty }} hoverable">
+                <div class="card-content white-text">
+                    <div class="input-field">
+                        <input id="task_name-{{ _id }}" type="text" value="{{ name }}" class="white-text editable" disabled>
+                        <label for="task_name-{{ _id }}" class="white-text active">Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="task_difficulty-{{ _id }}" type="text" value="{{ difficulty }}" class="white-text editable" disabled>
+                        <label for="task_difficulty-{{ _id }}" class="white-text active">Difficulty</label>
+                    </div>
+                    <p>ID: {{ _id }}</p>
+                    <a class="btn-floating btn waves-effect waves-light white right removeTask editableButton hide">
+                        <i class="material-icons {{ getTaskColour this.difficulty }}-text" id="REMOVE-TASK-BTN-{{ _id }}">remove</i>
+                    </a>
+                </div>
+            </div>
+    </div>
+</template>
+
+<template name="admin_event_addTask">
+    <div class="col s12 m6 editableButton hide">
+        <div class="card {{ getTaskColour this.difficulty }} hoverable">
+            <div class="card-content white-text">
+                <form id="ADD-TASK-FORM-{{ _id }}">
+                    <div class="input-field">
+                        <input id="new_task_name" type="text" value="" class="white-text editable" disabled>
+                        <label for="new_task_name" class="white-text">New task name</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="new_task_difficulty" type="text" value="{{ difficulty }}" class="white-text editable" disabled>
+                        <label for="new_task_difficulty" class="white-text">Difficulty</label>
+                    </div>
+                    <a class="btn-floating btn waves-effect waves-light white right addTask">
+                        <i class="material-icons blue-text" id="ADD-TASK-BTN-{{ _id }}">add</i>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>

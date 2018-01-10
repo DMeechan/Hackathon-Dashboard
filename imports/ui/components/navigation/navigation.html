@@ -1,0 +1,43 @@
+<template name="navMenu">
+    <nav class="blue lighten-1">
+        <div class="nav-wrapper">
+            <!-- Show on tablet & desktop -->
+            <a href="/" class="brand-logo center hide-on-med-and-down">
+                <i class="material-icons"></i>Hackathon
+            </a>
+            <!-- Show on mobile only -->
+            <a href="/" class="brand-logo left hide-on-large-only">
+                <i class="material-icons"></i>Hackathon
+            </a>
+            {{#if currentUser}}
+                <ul class="right">
+                    <li class="hide-on-small-only">
+                        <a href="/events">
+                            <i class="material-icons left">event</i>Events
+                        </a>
+                    </li>
+                    <li class="hide-on-small-only">
+                        <a href="/vote">
+                            <i class="material-icons left">local_pizza</i>Vote for Pizza
+                        </a>
+                    </li>
+                    <li class="hide-on-med-and-up">
+                        <a href="/events">
+                            <i class="material-icons left">event</i>
+                        </a>
+                    </li>
+                    <li class="hide-on-med-and-up">
+                        <a href="/vote">
+                            <i class="material-icons left">local_pizza</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/" class="logout">
+                            <i class="material-icons">exit_to_app</i>
+                        </a>
+                    </li>
+                </ul>
+            {{/if}}
+        </div>
+    </nav>
+</template>
