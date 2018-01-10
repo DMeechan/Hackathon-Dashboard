@@ -9,7 +9,7 @@ Roadmap:
     - [ ] Event deletion
     - [ ] Admin access rights controls
 - [ ] Add custom embeded form URL for 'Vote for Pizza'
-- [ ] Set up custom event description
+- [X] Set up custom event description
 
 << migration to open source complete >>
 - [ ] Add ability to enable / disable 'Vote for Pizza'

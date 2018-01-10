@@ -82,6 +82,22 @@ Template.admin_event_info.onRendered(() => {
         close: 'Ok',
         closeOnSelect: false // Close upon selecting a date,
     });
+
+});
+
+Template.admin_event_info.helpers({
+    getInstructions(id) {
+        // $(document).ready(function () {
+        //     $('#event_instructions').val('hi');
+        // });
+
+        // Wait 0.1 seconds before triggering a textarea autoresize
+        Meteor.setTimeout(() => {
+            $('#' + id + "_event_instructions").trigger('autoresize');
+        }, 150);
+
+        return Events.findOne({ _id: id }).instructions;
+    },
 });
 
 Template.admin_event_participants.helpers({
@@ -205,15 +221,21 @@ function saveEventChanges(id) {
     const formID = '#FORM-' + id;
     const formElements = $(formID + ' :input[type=text]');
 
+    console.log('form el', formElements);
+
     const inputsDict = elementsToDictionary(formElements);
-    // console.log(inputsDict);
+    console.log(inputsDict);
+
+    const instructionsElement = $('#' + id + "_event_instructions");
+    instructionsElement.trigger('autoresize');
 
     const name = inputsDict['event_name'];
     const active = inputsDict['event_active'] || true;
     const date = inputsDict['event_date'];
     const theme = inputsDict['event_theme'];
+    const instructions = instructionsElement.val();
 
-    Meteor.call('updateEvent', id, name, active, date, theme, (error, result) => {
+    Meteor.call('updateEvent', id, name, active, date, theme, instructions, (error, result) => {
         if (error) {
             console.log('Error updating event:');
             console.log(error);

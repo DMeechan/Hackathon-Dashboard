@@ -26,7 +26,7 @@ Meteor.methods({
         Events.insert(content);
     },
 
-    updateEvent: (id, name, active, stringDate, theme) => {
+    updateEvent: (id, name, active, stringDate, theme, instructions) => {
         if (!Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
         }
@@ -36,15 +36,17 @@ Meteor.methods({
         check(name, String);
         check(active, Boolean);
         check(theme, String);
+        check(instructions, String);
 
-        const content = {
-            name: name,
-            active: active,
-            date: date,
-            theme: theme,
-        }
-
-        Events.update({_id: id}, { $set: { name: name, active: active, date: date, theme: theme } });
+        Events.update({ _id: id }, {
+            $set: {
+                name: name,
+                active: active,
+                date: date,
+                theme: theme,
+                instructions: instructions
+            } 
+        });
     },
 
     removeEvent: function (id) {

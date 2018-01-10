@@ -44,6 +44,13 @@ Template.home_leaderboard.helpers({
     
 });
 
+Template.home_instructions.helpers({
+    getInstructions() {
+        const eventID = getEventID();
+        return Events.findOne({ _id: eventID }).instructions;
+    },
+})
+
 Template.home_tasks.onRendered(function () {
     $(document).ready(function () {
         Materialize.showStaggeredList('.staggered');
