@@ -1,0 +1,64 @@
+module.exports = {
+  servers: {
+    one: {
+      // TODO: set host address, username, and authentication method
+      host: '1.2.3.4',
+      username: 'root',
+      // pem: './path/to/pem'
+      // password: 'server-password'
+      // or neither for authenticate from ssh-agent
+    }
+  },
+
+  meteor: {
+    // TODO: change app name and path
+    name: 'hackathon',
+    path: '../',
+
+    docker: {
+      image: 'abernix/meteord:base'
+    },
+
+    servers: {
+      one: {},
+    },
+
+    buildOptions: {
+      serverOnly: true,
+    },
+
+    env: {
+      // TODO: Change to your app's url
+      // If you are using ssl, it needs to start with https://
+      ROOT_URL: 'http://app-name.com',
+      MONGO_URL: 'mongodb://localhost/meteor',
+    },
+
+    deployCheckWaitTime: 60,
+
+    // ssl: { // (optional)
+    //   // Enables let's encrypt (optional)
+    //   autogenerate: {
+    //     email: 'email.address@domain.com',
+    //     // comma separated list of domains
+    //     domains: 'website.com,www.website.com'
+    //   }
+    // },
+
+    docker: {
+      // change to 'abernix/meteord:base' if your app is using Meteor 1.4 - 1.5
+      image: 'abernix/meteord:node-8-base',
+    },
+
+    // Show progress bar while uploading bundle to server
+    // You might need to disable it on CI servers
+    enableUploadProgressBar: true
+  },
+
+  mongo: {
+    version: '3.4.1',
+    servers: {
+      one: {}
+    }
+  }
+};
