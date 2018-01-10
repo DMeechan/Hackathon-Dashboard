@@ -2,6 +2,7 @@ import './admin.html';
 
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { ReactiveMethod } from 'meteor/simple:reactive-method';
 import { access } from 'fs';
 
 import Events from '/imports/api/Events/events.js';
@@ -10,18 +11,7 @@ import UserData from '/imports/api/UserData/userData.js';
 
 Template.Admin_Layout.helpers({
     allowedUser() {
-        const userInfo = Meteor.users.findOne({_id: Meteor.userId()}, {
-            fields: {
-                'emails': 1,
-            },
-        });
-        const email = userInfo.emails[0].address;
-        const allowedEmails = [
-            "admin@email.com",
-            "daniel.meechan@ibm.com"
-        ];
-        const emailFound = (allowedEmails.indexOf(email) > -1);
-        return emailFound || false;
+        return ReactiveMethod.call('isAdmin');
     },
 });
 

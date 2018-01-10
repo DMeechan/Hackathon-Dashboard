@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 
+import admins from '/imports/modules/settings.js';
+
 Meteor.methods({
     exportUserData: function() {
         if (!Meteor.userId()) {
@@ -27,5 +29,22 @@ Meteor.methods({
         console.log(map);
         return map;
 
+    },
+
+    isAdmin: () => {
+        if (!Meteor.userId()) {
+            throw new Meteor.Error('not-authorized');
+        }
+
+        const userInfo = Meteor.users.findOne({ _id: Meteor.userId() }, {
+            fields: {
+                'emails': 1,
+            },
+        });
+        const email = userInfo.emails[0].address;
+        const allowedEmails = admins.admins;
+
+        const emailFound = (allowedEmails.indexOf(email) > -1);
+        return emailFound || false;
     },
 });
