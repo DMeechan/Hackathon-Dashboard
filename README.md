@@ -50,6 +50,16 @@ To run Meteor in production, you'll need a server and a MongoDB database. I reco
 
 I'm using Meteor Buildpack Horse to get Meteor working on my Heroku instance. To do the same, follow the instructions found [here](https://github.com/AdmitHub/meteor-buildpack-horse).
 
+## The dashboard in action
+
+![userViewGif]
+
+
+![adminViewGif]
+
+[userViewGif]: https://i.gyazo.com/fc3e8eda09aa0d54fa10fa297398a6c4.gif
+[adminViewGif]: https://i.gyazo.com/14011a4d4fe821ef781cc69b09694a29.gif
+
 ## Roadmap:
 Version 1 :white_check_mark::
 - [X] Remove all organisation-specific content
