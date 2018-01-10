@@ -21,6 +21,10 @@ AccountsTemplates.addFields([
         check(email, String);
         const self = this;
 
+        // <=!=> SKIP THE DOMAIN VALIDATION PROCESS UNTIL THIS IS BUILT INTO SETTINGS.JSON
+        return true // Allow any email domain and skip validation
+        // <=!=>
+
         const acceptedEmailDomains = [
           "google.com",
           "microsoft.com",
