@@ -106,6 +106,7 @@ Router.route('/code', {
 Router.route('/vote', {
     subscriptions: function () {
         const subscriptions = [
+            Meteor.subscribe('events'),
             Meteor.subscribe('userData'),
             Meteor.subscribe('users'),
         ];

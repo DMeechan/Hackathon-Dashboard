@@ -17,7 +17,11 @@
                     <p>Theme: {{ theme }}</p>
                 </div>
                 <div class="card-action grey lighten-5">
-                    <a href="/home" class="join blue-text" id="{{ _id }}">JOIN EVENT</a>
+                    {{#if this.active}}
+                        <a href="/home" class="join blue-text" id="{{ _id }}">JOIN EVENT</a>
+                    {{else}}
+                        <a class="grey-text">EVENT DISABLED</a>
+                    {{/if}}
                 </div>
             </div>
         </div>

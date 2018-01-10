@@ -99,14 +99,30 @@
             <input id="event_date" type="text" value="{{ formatDateMaterialize date }}" class="datepicker editable" disabled>
         </div>
     </div>
+    
     <div class="row">
         <div class="col s12">
             <label for="{{_id}}_event_instructions" class="active">Event Instructions</label>
-            <textarea id="{{_id}}_event_instructions" class="materialize-textarea editable" value="{{ getInstructions _id }}" disabled></textarea>
+            <textarea id="{{ _id }}_event_instructions" class="materialize-textarea editable" value="{{ getInstructions _id }}" disabled></textarea>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
+            <input id="event_vote_url" type="text" value="{{ voteEmbedURL }}" class="editable" disabled>
+            <label for="event_vote_url" class="active">Vote Page Embed URL from Google Forms</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s6">
+            <label for="{{ _id }}_event_enabled" class="active">Event Enabled</label>
+            <div class="switch">
+                <label> Off
+                    <input type="checkbox" id="{{ _id }}_event_enabled" class="editable" disabled><span class="lever"></span>
+                    On
+                </label>
+            </div>
+        </div>
+        <div class="input-field col s6">
             <input id="event_id" type="text" value="{{ _id }}" class="" disabled>
             <label for="event_id" class="active">ID</label>
         </div>

@@ -26,7 +26,7 @@ Meteor.methods({
         Events.insert(content);
     },
 
-    updateEvent: (id, name, active, stringDate, theme, instructions) => {
+    updateEvent: (id, name, active, stringDate, theme, instructions, voteEmbedURL) => {
         if (!Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
         }
@@ -37,6 +37,7 @@ Meteor.methods({
         check(active, Boolean);
         check(theme, String);
         check(instructions, String);
+        check(voteEmbedURL, String);
 
         Events.update({ _id: id }, {
             $set: {
@@ -44,7 +45,8 @@ Meteor.methods({
                 active: active,
                 date: date,
                 theme: theme,
-                instructions: instructions
+                instructions: instructions,
+                voteEmbedURL: voteEmbedURL
             } 
         });
     },

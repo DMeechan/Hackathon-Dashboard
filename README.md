@@ -3,15 +3,15 @@
 Roadmap:
 - [X] Remove all organisation-specific content
 - [X] Add admin page verification
-- [ ] Refactor Tasks collection to store tasks for numerous events
 - [ ] Add features to admin panel:
     - [ ] Event activation / deactivation
     - [ ] Event deletion
     - [ ] Admin access rights controls
-- [ ] Add custom embeded form URL for 'Vote for Pizza'
+- [X] Add custom embeded form URL for Vote page
 - [X] Set up custom event description
 
 << migration to open source complete >>
+- [ ] Refactor Tasks collection to store tasks for numerous events
 - [ ] Add ability to enable / disable 'Vote for Pizza'
 - [ ] Add scalable secret codes
 - [ ] Customise dashboard name   

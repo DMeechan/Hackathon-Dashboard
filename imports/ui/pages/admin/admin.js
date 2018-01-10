@@ -83,6 +83,14 @@ Template.admin_event_info.onRendered(() => {
         closeOnSelect: false // Close upon selecting a date,
     });
 
+    const event = getEvent();
+    const id = event._id;
+    const active = event.active;
+
+    $(document).ready(() => {
+        $('#' + id + '_event_enabled').prop('checked', active);
+    });
+
 });
 
 Template.admin_event_info.helpers({
@@ -219,23 +227,23 @@ Template.admin_addEvent.events({
 
 function saveEventChanges(id) {
     const formID = '#FORM-' + id;
-    const formElements = $(formID + ' :input[type=text]');
+    const formTextElements = $(formID + ' :input[type=text]');
 
-    console.log('form el', formElements);
-
-    const inputsDict = elementsToDictionary(formElements);
-    console.log(inputsDict);
-
-    const instructionsElement = $('#' + id + "_event_instructions");
+    const textInputsDict = elementsToDictionary(formTextElements);
+    const enabledSwitchElement = $('#' + id + '_event_enabled');
+    const instructionsElement = $('#' + id + '_event_instructions');
     instructionsElement.trigger('autoresize');
 
-    const name = inputsDict['event_name'];
-    const active = inputsDict['event_active'] || true;
-    const date = inputsDict['event_date'];
-    const theme = inputsDict['event_theme'];
+    const name = textInputsDict['event_name'];
+    const date = textInputsDict['event_date'];
+    const theme = textInputsDict['event_theme'];
+    const voteEmbedURL = textInputsDict['event_vote_url'];
+    const active = enabledSwitchElement[0].checked;
     const instructions = instructionsElement.val();
 
-    Meteor.call('updateEvent', id, name, active, date, theme, instructions, (error, result) => {
+    console.log('active', active);
+
+    Meteor.call('updateEvent', id, name, active, date, theme, instructions, voteEmbedURL, (error, result) => {
         if (error) {
             console.log('Error updating event:');
             console.log(error);
@@ -243,9 +251,9 @@ function saveEventChanges(id) {
     });
 
     let tasksDict = {};
-    for (const key in inputsDict) {
-        if (inputsDict.hasOwnProperty(key)) {
-            const value = inputsDict[key];
+    for (const key in textInputsDict) {
+        if (textInputsDict.hasOwnProperty(key)) {
+            const value = textInputsDict[key];
             if (key.includes('task_name-')) {
                 const taskID = key.replace('task_name-', '');
                 tasksDict[taskID] = {};
@@ -294,4 +302,15 @@ function elementsToDictionary(formElements) {
         // };
     }).get();
     return inputsDict;
+}
+
+function getEvent() {
+    const userID = Meteor.userId();
+    const eventID = UserData.findOne({ _id: userID }).eventID;
+    return Events.findOne({ _id: eventID });
+}
+
+function getEventID() {
+    const userID = Meteor.userId();
+    return UserData.findOne({ _id: userID }).eventID;
 }
