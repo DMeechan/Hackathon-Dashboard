@@ -5,9 +5,11 @@ Roadmap:
 - [X] Add admin page verification
 - [ ] Add features to admin panel:
     - [X] Event activation / deactivation
-    - [ ] Admin access rights controls
+    - [X] Admin access rights controls
 - [X] Add custom embeded form URL for Vote page
 - [X] Set up custom event description
+- [X] Fix bugs with admin panel buttons
+- [X] Get enabled / disabled toggle switches to update on page load
 
 << migration to open source complete >>
 - [ ] Customise dashboard name 

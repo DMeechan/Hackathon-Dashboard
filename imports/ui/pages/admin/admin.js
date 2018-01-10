@@ -26,14 +26,27 @@ Template.admin_events.helpers({
 Template.admin_events.onRendered(() => {
     $(document).ready(function () {
         $('.collapsible').collapsible();
+
+        // Open up the first event
         $('.collapsible').collapsible('open', 0);
+        // And make its editButton visible
+        const liID = $('ul#events li:first')[0].id;
+        const eventID = liID.replace('_li', '');
+        const editButton = $('#' + eventID + '_editButton');
+        editButton.removeClass('hide');
+
+        // Set show staggered list
         Materialize.showStaggeredList('.staggered');
     });
 });
 
 Template.admin_event.events({
-    'click .toggleEventEditButton': function () {
-        const button = $("#eventEditButton");
+    'click .toggleEventButtonVisible': function (clickEvent) {
+        clickEvent.preventDefault();
+        const headerID = clickEvent.target.id;
+        const eventID = headerID.replace('_header', '');
+
+        const button = $('#' + eventID + '_editButton');
         if (button.hasClass('hide')) {
             button.removeClass('hide');
         } else {
@@ -42,26 +55,32 @@ Template.admin_event.events({
     },
     'click .editController': (clickEvent) => {
         clickEvent.preventDefault();
-        const editButton = clickEvent.target;
+        const editButtonIcon = clickEvent.target;
 
         const isEditingDisabled = $(".editable").prop("disabled");
         if (isEditingDisabled) {
             // Enable editing
-            $(editButton).text('save');
+            $(editButtonIcon).text('save');
             $(".editable").prop("disabled", false);
             $('.editableButton').removeClass('hide');
         } else {
             // Disable editing & save changes
-            $(editButton).text('edit');
+            $(editButtonIcon).text('edit');
             $(".editable").prop("disabled", true);
             $('.editableButton').addClass('hide');
 
-            const editButtonID = editButton.id;
-            const eventID = editButtonID.replace('EDIT-', '');
+            const editButtonIconID = editButtonIcon.id;
+            const eventID = editButtonIconID.replace('_editButtonIcon', '');
             saveEventChanges(eventID);
         }
     }
 });
+
+Template.admin_event_info.onCreated(() => {
+
+});
+
+
 
 Template.admin_event_info.onRendered(() => {
     $('.datepicker').pickadate({
@@ -71,14 +90,6 @@ Template.admin_event_info.onRendered(() => {
         clear: 'Clear',
         close: 'Ok',
         closeOnSelect: false // Close upon selecting a date,
-    });
-
-    const event = getEvent();
-    const id = event._id;
-    const active = event.active;
-
-    $(document).ready(() => {
-        $('#' + id + '_event_enabled').prop('checked', active);
     });
 
 });
@@ -96,6 +107,18 @@ Template.admin_event_info.helpers({
 
         return Events.findOne({ _id: id }).instructions;
     },
+
+    getEnabled(id) {
+        const active = Events.findOne({ _id: id }).active;
+        
+        $(document).ready(() => {
+            Meteor.setTimeout(() => {
+                $('#' + id + '_event_enabled').prop('checked', active);
+            }, 100);
+            // $('#' + id + '_event_enabled').prop('checked', true);
+        });
+    },
+
 });
 
 Template.admin_event_participants.helpers({
@@ -224,14 +247,17 @@ function saveEventChanges(id) {
     const instructionsElement = $('#' + id + '_event_instructions');
     instructionsElement.trigger('autoresize');
 
+    // console.log('id', id);
+    // console.log('element', enabledSwitchElement);
+    // console.log('element 0', enabledSwitchElement[0]);
+    // console.log('active', enabledSwitchElement[0].checked);
+
     const name = textInputsDict['event_name'];
     const date = textInputsDict['event_date'];
     const theme = textInputsDict['event_theme'];
     const voteEmbedURL = textInputsDict['event_vote_url'];
     const active = enabledSwitchElement[0].checked;
     const instructions = instructionsElement.val();
-
-    console.log('active', active);
 
     Meteor.call('updateEvent', id, name, active, date, theme, instructions, voteEmbedURL, (error, result) => {
         if (error) {

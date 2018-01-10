@@ -15,7 +15,7 @@
 </template>
 
 <template name="admin_events">
-    <ul class="collapsible popout" data-collapsible="expandable">
+    <ul id="events" class="collapsible popout" data-collapsible="expandable">
         {{#each getEvents}}
             {{> admin_event }}
         {{/each}}
@@ -62,11 +62,11 @@
 </template>
 
 <template name="admin_event">
-    <li>
-        <div class="collapsible-header toggleEventEditButton">
+    <li id="{{ _id }}_li">
+        <div id="{{ _id }}_header" class="collapsible-header toggleEventButtonVisible">
             <i class="material-icons">insert_invitation</i>{{ name }}</div>
-            <a style="top: 20px; right: 20px;" id="eventEditButton" class="btn-large btn-floating right waves-effect waves-light orange lighten-1 editController">
-                <i class="material-icons" id="EDIT-{{ _id }}">edit</i>
+            <a style="top: 20px; right: 20px;" id="{{ _id }}_editButton" class="btn-large btn-floating right waves-effect waves-light orange lighten-1 editController hide">
+                <i class="material-icons" id="{{ _id }}_editButtonIcon">edit</i>
             </a>
         <div class="collapsible-body">
             <span>
@@ -117,7 +117,7 @@
             <label for="{{ _id }}_event_enabled" class="active">Event Enabled</label>
             <div class="switch">
                 <label> Off
-                    <input type="checkbox" id="{{ _id }}_event_enabled" class="editable" disabled><span class="lever"></span>
+                    <input type="checkbox" id="{{ _id }}_event_enabled" class="editable" disabled>{{ getEnabled _id }}<span class="lever"></span>
                     On
                 </label>
             </div>
