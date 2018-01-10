@@ -17,7 +17,8 @@ Template.Admin_Layout.helpers({
         });
         const email = userInfo.emails[0].address;
         const allowedEmails = [
-            "daniel.meechan@ibm.com",
+            "admin@email.com",
+            "daniel.meechan@ibm.com"
         ];
         const emailFound = (allowedEmails.indexOf(email) > -1);
         return emailFound || false;
