@@ -1,7 +1,6 @@
 import './logger.js';
 import '/imports/modules/helpers/index.js';
 
-import './accounts-config.js';
 import '/imports/startup/both/index.js';
 
 import './spinner.js';

@@ -1,5 +1,14 @@
 # Hackathon Dashboard
 
+## The dashboard in action
+
+![userViewGif]
+
+![adminViewGif]
+
+[userViewGif]: https://i.gyazo.com/fc3e8eda09aa0d54fa10fa297398a6c4.gif
+[adminViewGif]: https://i.gyazo.com/14011a4d4fe821ef781cc69b09694a29.gif
+
 ## Overview
 
 My team and I at work decided to run an internal hackathon, and realised we needed a dashboard to help manage it. We wanted to create challenges which give participants points when they complete each one and can watch themselves climb up the leaderboard in real time. I'd been working with Meteor for a about a month prior to this, so I figured I'd make the dashboard using [Meteor](https://www.meteor.com/).
@@ -50,16 +59,6 @@ To run Meteor in production, you'll need a server and a MongoDB database. I reco
 
 I'm using Meteor Buildpack Horse to get Meteor working on my Heroku instance. To do the same, follow the instructions found [here](https://github.com/AdmitHub/meteor-buildpack-horse).
 
-## The dashboard in action
-
-![userViewGif]
-
-
-![adminViewGif]
-
-[userViewGif]: https://i.gyazo.com/fc3e8eda09aa0d54fa10fa297398a6c4.gif
-[adminViewGif]: https://i.gyazo.com/14011a4d4fe821ef781cc69b09694a29.gif
-
 ## Roadmap:
 Version 1 :white_check_mark::
 - [X] Remove all organisation-specific content
@@ -74,6 +73,7 @@ Version 1 :white_check_mark::
 
 Version 2:
 - [ ] Customise dashboard name 
+- [ ] Add optional email domain restrictions
 - [ ] Refactor Tasks collection to store tasks for numerous events
 - [ ] Add ability to enable / disable 'Vote for Pizza'
 - [ ] Add scalable secret codes

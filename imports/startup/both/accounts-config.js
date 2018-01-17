@@ -1,6 +1,6 @@
 import { check } from 'meteor/check';
 
-var pwd = AccountsTemplates.removeField('password');
+const pwd = AccountsTemplates.removeField('password');
 AccountsTemplates.removeField('email');
 const errorMessage = "Invalid email. Please enter a valid email";
 AccountsTemplates.addFields([
@@ -22,6 +22,7 @@ AccountsTemplates.addFields([
         const self = this;
 
         // <=!=> SKIP THE DOMAIN VALIDATION PROCESS UNTIL THIS IS BUILT INTO SETTINGS.JSON
+        // TODO
         return true // Allow any email domain and skip validation
         // <=!=>
 
