@@ -2,7 +2,11 @@
 
 ## The dashboard in action
 
+Users' view:
+
 ![userViewGif]
+
+Admins' view:
 
 ![adminViewGif]
 
