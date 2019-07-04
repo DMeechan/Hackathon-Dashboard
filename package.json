@@ -6,7 +6,9 @@
     "cleanup": "rm -rf ../bundle/",
     "dist": "npm run cleanup && meteor build ../ --directory --architecture os.linux.x86_64 --server-only",
     "predeploy": "npm run dist && cp app.yaml ../bundle/ && cp Dockerfile ../bundle/",
-    "deploy": "npm run predeploy && (cd ../bundle && gcloud app deploy -q)"
+    "deploy": "npm run predeploy && (cd ../bundle && gcloud app deploy -q)",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
@@ -19,6 +21,8 @@
     "pica": "^4.0.1",
     "sharp": "^0.18.4",
     "simpl-schema": "^1.2.0",
-    "tracer": "^0.8.11"
-  }
+    "tracer": "^0.8.11",
+    "snyk": "^1.189.0"
+  },
+  "snyk": true
 }
